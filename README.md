@@ -82,12 +82,36 @@ Entry.objects.filter(attribute_name__incontains='tomaS')
 
 * **Span lookups**
 
+Filtro por atributos **ForeignKey()**
+* Busca por atributos de otra tabla, llamada Blog.
+```sh
+Entry.objects.filter(atributo_entry__atributo_blog='tomas')
+```
+Filtro por atributos **ForeignKey()**, agregando filtros.
+* Busca por atributos de otra tabla, llamada Blog y ademas busca que contenga otras cualidades.
+```sh
+Entry.objects.filter(atributo_entry__atributo_blog__contains='tom')
+```
 
 * **Caching**
 
+Carga de objetos con Eficiencia.
+```sh
+queryset = Entry.objects.all()
+lista = [e.name for e in queryset]
+```
+
+Carga de objetos sin Eficiencia.
+```sh
+lista = [e.name for e in Entry.objects.all()]
+```
 
 * **Q lookups**
 
+
+```sh
+Entry.objects.
+```
 
 * **Objetos relacionados**
 
