@@ -108,10 +108,35 @@ lista = [e.name for e in Entry.objects.all()]
 
 * **Q lookups**
 
-
+Busca los objetos con condiciones
+* Busca los registros del año 2018 0 2021
+* (| or)
+* (, and)
 ```sh
-Entry.objects.
+from django.db.models import Q
+from models import Entry
+
+Entry.objects.filter(Q(pub_date__year=2018) | Q(pub_date__year=2021))
 ```
 
 * **Objetos relacionados**
 
+Opción 1 - Buscar todos los objetos de una tabla a otro
+* Buscar todos las entradas de un autor
+* Tabla entradas: authors = models.ManyToManyField(Author)
+```sh
+from models import Author
+
+eric = Author.objects.get(name='eric')
+lista = eric.entry_set.all()
+```
+
+Opción 2 **Mas Eficiencia** - Buscar todos los objetos de una tabla a otro
+* Buscar todos las entradas de un autor
+* Tabla entradas: authors = models.ManyToManyField(Author, related_name='entries')
+```sh
+from models import Author
+
+eric = Author.objects.get(name='eric')
+lista = eric.entries.all()
+```
